@@ -1,4 +1,9 @@
 import {IStyleAPI, IStyleItem} from "import-sort-style";
+import {
+  startWithAtSign,
+  startsWithDollarSign,
+  startWithTlideSign
+} from './customRules';
 
 export default function(styleApi: IStyleAPI): Array<IStyleItem> {
   const {
@@ -64,6 +69,15 @@ export default function(styleApi: IStyleAPI): Array<IStyleItem> {
     {match: and(hasOnlyNamedMembers, isAbsoluteModule, member(startsWithUpperCase)), sort: member(unicode), sortNamedMembers: name(unicode)},
     // import {foo, bar, …} from "baz";
     {match: and(hasOnlyNamedMembers, isAbsoluteModule, member(startsWithLowerCase)), sort: member(unicode), sortNamedMembers: name(unicode)},
+
+    {separator: true},
+
+    //import common asserts use babel-root-import custom symbol '@'
+    {match: and(not(isAbsoluteModule), member(startWithAtSign)), sort: member(unicode)},
+    //import common component use babel-root-import custom symbol '$'
+    {match: and(not(isAbsoluteModule), member(startsWithDollarSign)), sort: member(unicode)},
+    //import from page use babel-root-import custom symbol '~'
+    {match: and(not(isAbsoluteModule), member(startWithTlideSign)), sort: member(unicode)},
 
     {separator: true},
 
