@@ -4,7 +4,8 @@ import {
   startsWithDollarSign,
   startWithTlideSign,
   isAbsoluteModule,
-  isRelativeModule
+  isRelativeModule,
+  isRootImortModule
 } from './customRules';
 
 export default function(styleApi: IStyleAPI): Array<IStyleItem> {
@@ -73,11 +74,11 @@ export default function(styleApi: IStyleAPI): Array<IStyleItem> {
     {separator: true},
 
     //import common asserts use babel-root-import custom symbol '@'
-    {match: and(not(isAbsoluteModule), member(startWithAtSign)), sort: member(unicode)},
+    {match: and(isRootImortModule, member(startWithAtSign)), sort: member(unicode)},
     //import common component use babel-root-import custom symbol '$'
-    {match: and(not(isAbsoluteModule), member(startsWithDollarSign)), sort: member(unicode)},
+    {match: and(isRootImortModule, member(startsWithDollarSign)), sort: member(unicode)},
     //import from page use babel-root-import custom symbol '~'
-    {match: and(not(isAbsoluteModule), member(startWithTlideSign)), sort: member(unicode)},
+    {match: and(isRootImortModule, member(startWithTlideSign)), sort: member(unicode)},
 
     {separator: true},
 

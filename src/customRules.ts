@@ -4,19 +4,18 @@ function startWithSubStr(text: string, prefix: string) : boolean {
   return text.startsWith(prefix);
 }
 
-/**
- * override default isRelativeModule to adjust babel-root-import rules
- * @param imported 
- */
 function isRelativeModule(imported: IImport): boolean {
-  return imported.moduleName.indexOf('.') === 0 || 
-  imported.moduleName.indexOf('@') === 0 || 
+  return imported.moduleName.indexOf('.') === 0;
+}
+
+function isRootImortModule(imported: IImport) : boolean {
+  return imported.moduleName.indexOf('@') === 0 || 
   imported.moduleName.indexOf('$') === 0 || 
   imported.moduleName.indexOf('~') === 0;
 }
 
 function isAbsoluteModule(imported: IImport): boolean {
-  return !isRelativeModule(imported);
+  return !isRelativeModule(imported) && !isRootImortModule(imported);
 }
 
 function startWithAtSign(text: string) : boolean {
@@ -37,5 +36,6 @@ export {
   startsWithDollarSign,
   startWithTlideSign,
   isAbsoluteModule,
-  isRelativeModule
+  isRelativeModule,
+  isRootImortModule
 }
