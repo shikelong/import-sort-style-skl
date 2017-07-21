@@ -2,7 +2,9 @@ import {IStyleAPI, IStyleItem} from "import-sort-style";
 import {
   startWithAtSign,
   startsWithDollarSign,
-  startWithTlideSign
+  startWithTlideSign,
+  isAbsoluteModule,
+  isRelativeModule
 } from './customRules';
 
 export default function(styleApi: IStyleAPI): Array<IStyleItem> {
@@ -15,8 +17,6 @@ export default function(styleApi: IStyleAPI): Array<IStyleItem> {
     hasOnlyDefaultMember,
     hasOnlyNamedMembers,
     hasOnlyNamespaceMember,
-    isAbsoluteModule,
-    isRelativeModule,
     member,
     name,
     not,
