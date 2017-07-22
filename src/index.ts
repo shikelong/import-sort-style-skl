@@ -32,10 +32,6 @@ export default function(styleApi: IStyleAPI): Array<IStyleItem> {
     {match: and(hasNoMember, isAbsoluteModule)},
     {separator: true},
 
-    // import "./foo"
-    {match: and(hasNoMember, isRelativeModule)},
-    {separator: true},
-
     // import * as _ from "bar";
     {match: and(hasOnlyNamespaceMember, isAbsoluteModule, not(member(startsWithAlphanumeric))), sort: member(unicode)},
     // import * as Foo from "bar";
@@ -81,6 +77,9 @@ export default function(styleApi: IStyleAPI): Array<IStyleItem> {
     {match: and(isRootImortModule, member(startWithTlideSign)), sort: member(unicode)},
 
     {separator: true},
+
+    // import "./foo"
+    {match: and(hasNoMember, isRelativeModule)},
 
     // import * as _ from "./bar";
     {match: and(hasOnlyNamespaceMember, isRelativeModule, not(member(startsWithAlphanumeric))), sort: member(unicode)},
