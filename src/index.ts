@@ -5,7 +5,8 @@ import {
   startWithTlideSign,
   isAbsoluteModule,
   isRelativeModule,
-  isRootImortModule
+  isRootImortModule,
+  rootImportSort
 } from './customRules';
 
 export default function(styleApi: IStyleAPI): Array<IStyleItem> {
@@ -20,6 +21,7 @@ export default function(styleApi: IStyleAPI): Array<IStyleItem> {
     hasOnlyNamespaceMember,
     member,
     name,
+    moduleName,
     not,
     startsWithAlphanumeric,
     startsWithLowerCase,
@@ -69,13 +71,14 @@ export default function(styleApi: IStyleAPI): Array<IStyleItem> {
 
     {separator: true},
 
-    //import from page use babel-root-import custom symbol '~'
-    {match: and(isRootImortModule, startWithTlideSign), sort: member(unicode)},
-    //import common asserts use babel-root-import custom symbol '@'
-    {match: and(isRootImortModule, startWithAtSign), sort: member(unicode)},
-    //import common component use babel-root-import custom symbol '$'
-    {match: and(isRootImortModule, startsWithDollarSign), sort: member(unicode)},
-    
+    {match: and(hasNoMember, isRootImortModule), sort: moduleName(rootImportSort)},
+
+    {match: and(hasOnlyNamespaceMember, isRootImortModule), sort: moduleName(rootImportSort)},
+    {match: and(hasDefaultMember, hasNamespaceMember, isRootImortModule), sort: moduleName(rootImportSort)},
+    {match: and(hasOnlyDefaultMember, isRootImortModule), sort: moduleName(rootImportSort)},
+    {match: and(hasDefaultMember, hasNamedMembers, isRootImortModule), sort: moduleName(rootImportSort), sortNamedMembers: name(unicode)},
+    {match: and(hasOnlyNamedMembers, isRootImortModule), sort: moduleName(rootImportSort), sortNamedMembers: name(unicode)},
+
     {separator: true},
 
     // import "./foo"

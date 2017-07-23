@@ -30,6 +30,17 @@ function startWithTlideSign(imported: IImport) : boolean {
   return startWithSubStr(imported.moduleName, '~');
 }
 
+//due to the $@~ charcode sort is $<@<~ the expected sort is in opposite
+function rootImportSort(first: string, second: string) : number {
+  if (first < second) {
+    return 1;
+  }
+
+  if (first > second) {
+    return -1;
+  }
+  return 0;
+}
 
 export {
   startWithAtSign,
@@ -37,5 +48,6 @@ export {
   startWithTlideSign,
   isAbsoluteModule,
   isRelativeModule,
-  isRootImortModule
+  isRootImortModule,
+  rootImportSort
 }
