@@ -44,7 +44,7 @@ export default function(styleApi: IStyleAPI): Array<IStyleItem> {
     // import Foo, * as bar from "baz";
     {match: and(hasDefaultMember, hasNamespaceMember, isAbsoluteModule, member(startsWithUpperCase)), sort: member(unicode)},
     // import foo, * as bar from "baz";
-    {match: and(hasDefaultMember, hasNamespaceMember, isAbsoluteModule, member(startsWithUpperCase)), sort: member(unicode)},
+    {match: and(hasDefaultMember, hasNamespaceMember, isAbsoluteModule, member(startsWithLowerCase)), sort: member(unicode)},
 
     // import _ from "bar";
     {match: and(hasOnlyDefaultMember, isAbsoluteModule, not(member(startsWithAlphanumeric))), sort: member(unicode)},
@@ -69,13 +69,13 @@ export default function(styleApi: IStyleAPI): Array<IStyleItem> {
 
     {separator: true},
 
-    //import common asserts use babel-root-import custom symbol '@'
-    {match: and(isRootImortModule, member(startWithAtSign)), sort: member(unicode)},
-    //import common component use babel-root-import custom symbol '$'
-    {match: and(isRootImortModule, member(startsWithDollarSign)), sort: member(unicode)},
     //import from page use babel-root-import custom symbol '~'
-    {match: and(isRootImortModule, member(startWithTlideSign)), sort: member(unicode)},
-
+    {match: and(isRootImortModule, startWithTlideSign), sort: member(unicode)},
+    //import common asserts use babel-root-import custom symbol '@'
+    {match: and(isRootImortModule, startWithAtSign), sort: member(unicode)},
+    //import common component use babel-root-import custom symbol '$'
+    {match: and(isRootImortModule, startsWithDollarSign), sort: member(unicode)},
+    
     {separator: true},
 
     // import "./foo"

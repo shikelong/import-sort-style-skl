@@ -18,16 +18,16 @@ function isAbsoluteModule(imported: IImport): boolean {
   return !isRelativeModule(imported) && !isRootImortModule(imported);
 }
 
-function startWithAtSign(text: string) : boolean {
-  return startWithSubStr(text, '@');
+function startWithAtSign(imported: IImport) : boolean {
+  return startWithSubStr(imported.moduleName, '@');
 }
 
-function startsWithDollarSign(text: string) : boolean {
-  return startWithSubStr(text, '$');
+function startsWithDollarSign(imported: IImport) : boolean {
+  return startWithSubStr(imported.moduleName, '$');
 }
 
-function startWithTlideSign(text: string) : boolean {
-  return startWithSubStr(text, '~');
+function startWithTlideSign(imported: IImport) : boolean {
+  return startWithSubStr(imported.moduleName, '~');
 }
 
 
